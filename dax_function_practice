@@ -1,0 +1,65 @@
+===Example 1===
+-- REMOVEFILTERS function--
+
+  (Sub Total) 
+Sales Amount =
+VAR Sales = [sales]
+VAR SalesIgnoreProduct =
+  CALCULATE (
+  [sales],
+  REMOVEFILTERS ( DimProduct[ProductName])
+  )
+RETURN
+SalesIgnoreProduct
+
+
+-------DIVIDE function calculate the Result and display Result---------------
+
+  Sales Amount =
+VAR Sales = [sales]
+VAR SalesIgnoreProduct =
+  CALCULATE (
+  [sales],
+  REMOVEFILTERS ( DimProduct[ProductName])
+  )
+VAR Result = 
+  DIVIDE ( Sales , SalesIgnoreProduct)
+  
+RETURN
+Result
+
+{format the Result in percentage}
+
+===Example 2===
+-------Context to calculate the percentage of total each product among all product , all class ---------------
+  
+    Sales Amount =
+VAR Sales = [sales]
+VAR SalesTotal =
+  CALCULATE (
+  [sales],
+  ALL ( DimProduct[ProductName], DimProduct[ClassName])
+  )
+VAR Result = 
+  DIVIDE ( Sales , SalesTotal)
+  
+RETURN
+Result
+
+{format the Result in percentage}
+
+
+===Example 3===
+-------  ALLSELECTED () function Context to dimension filters selected---------
+  
+Sales Amount =
+VAR Sales = [sales]
+VAR SalesTotal =
+  CALCULATE (
+  [sales],
+  ALLSELECTED ()
+  )
+VAR Result = 
+  DIVIDE ( Sales , SalesTotal)
+RETURN
+Result
